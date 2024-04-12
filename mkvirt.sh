@@ -8,7 +8,7 @@ virt-install --noreboot \
        	--accelerate \
 	--import \
 	--network default,model=virtio \
-	--disk size=40 \
-	--initrd-inject=/home/yo_sup/workspace/kickstart/rocky9.cfg \
+	--disk path=/srv/vmdisks/rocky9-template.img,size=40 \
+	--initrd-inject=rocky9.cfg \
 	--extra-args='inst.ks=file:rocky9.cfg console=tty0 console=ttyS0,9600' \
-	--location /home/yo_sup/Downloads/Rocky-9.3-x86_64-dvd.iso
+	--location /srv/iso/Rocky-9.3-x86_64-minimal.iso
