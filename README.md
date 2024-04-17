@@ -8,6 +8,6 @@ Simple script to create kvm and automate the install of Rocky 9 with a kickstart
 
 Get up and running:
 ```
-./mkvir.sh
+./mkvirt.sh
 ```
 
