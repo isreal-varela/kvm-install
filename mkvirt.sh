@@ -35,7 +35,6 @@ else
   create_virt
 fi
 
-echo "yeah"
 exit 0
 
 
