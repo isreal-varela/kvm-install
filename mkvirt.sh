@@ -24,7 +24,7 @@ function create_virt() {
   --disk path=/srv/vmdisks/"${vm_name}".qcow2,size=80 \
   --initrd-inject=rocky9.cfg \
   --extra-args='inst.ks=file:rocky9.cfg fips=1 console=tty0 console=ttyS0,9600' \
-  --location /srv/iso/Rocky-9.3-x86_64-dvd.iso \
+  --location /srv/iso/Rocky-9.4-x86_64-dvd.iso \
   --noautoconsole
 }
 
