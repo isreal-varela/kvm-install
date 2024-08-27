@@ -21,7 +21,7 @@ function create_virt() {
   --os-variant rocky9 \
   --accelerate \
   --network bridge=br0,model=virtio \
-  --disk path=/srv/vmdisks/"${vm_name}".qcow2,size=140 \
+  --disk path=/srv/vmdisks/"${vm_name}".qcow2,size=70 \
   --initrd-inject=rocky9.cfg \
   --extra-args='inst.ks=file:rocky9.cfg fips=1 console=tty0 console=ttyS0,9600' \
   --location /srv/iso/Rocky-9.4-x86_64-dvd.iso \
