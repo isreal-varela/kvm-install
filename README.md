@@ -1,5 +1,5 @@
 # kvm-install
-Simple script to create kvm and automate the install of Rocky 9 with a kickstart file.
+Simple script to create kvm and automate the install of Rocky 9/RHEL 8 with a kickstart file.
 Script will back up the current template appending the date to the name and spin up a new template.
 
 ## How It's Made:
@@ -9,7 +9,7 @@ Script will back up the current template appending the date to the name and spin
 
 Get up and running:
 ```
-./mkvirt.sh test
+./mkvirt.sh <optional kvm name>
 ```
 
 Optionally, the QCOW2 file generated as a result of above can be "shrunk/sparsified" once the
