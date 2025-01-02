@@ -1,5 +1,4 @@
 #!/bin/bash +x
-#!/bin/bash +x
 #
 # Script is used to build kvm image.
 # It will back up the vm template adding the current date and then delete the qcow2 image as well as remove the kvm from inventory before attempting to rebuild.
@@ -8,20 +7,13 @@
 date=$(date '+%Y-%m-%d')
 base_dir="/srv/vmdisks"
 backup="true"
-vm_name="rocky9-template"
+vm_name="rhel9-template"
 
-if_dev="br_int"
-cfg_name="rocky9"
+if_dev="virbr0"
+cfg_name="rhel9"
 iso_path="/srv/iso"
-iso_name="Rocky-9.4-x86_64-dvd.iso"
-os_variant="rocky9"
-vm_name="rocky9-template"
-
-if_dev="br_int"
-cfg_name="rocky9"
-iso_path="/srv/iso"
-iso_name="Rocky-9.4-x86_64-dvd.iso"
-os_variant="rocky9"
+iso_name="rhel-9.5-x86_64-dvd.iso"
+os_variant="rhel9-unknown"
 
 function create_virt() {
   echo "cmd:  virt-install --noreboot \ "
@@ -33,7 +25,7 @@ function create_virt() {
   echo "      --network bridge=${if_dev},model=virtio \ "
   echo "      --disk path=${base_dir}/${vm_name}.qcow2,size=70 \ "
   echo "      --initrd-inject=${cfg_name}.cfg \ "
-  echo "      --extra-args='inst.ks=file:${cfg_name}.cfg fips=1 console=tty0 console=ttyS0,9600' \ "
+  echo "      --extra-args='inst.ks=file:${cfg_name}.cfg fips=0 console=tty0 console=ttyS0,9600' \ "
   echo "      --location ${iso_path}/${iso_name} \ "
   echo "      --noautoconsole"
 
@@ -49,7 +41,7 @@ function create_virt() {
   --os-variant ${os_variant} \
   --accelerate \
   --network bridge=${if_dev},model=virtio \
-  --disk path=${base_dir}/${vm_name}.qcow2,size=70 \
+  --disk path=${base_dir}/${vm_name}.qcow2,size=30 \
   --initrd-inject=${cfg_name}.cfg \
   --extra-args="inst.ks=file:${cfg_name}.cfg fips=0 console=tty0 console=ttyS0,9600" \
   --location ${iso_path}/${iso_name} \
@@ -66,8 +58,9 @@ function clean_vm() {
   if [ -f "$base_dir/$vm_name.qcow2" ];then
     vm_backup="${vm_name}-${date}.qcow2"
     mv -f "${base_dir}"/"${vm_name}".qcow2 "${base_dir}"/"${vm_backup}"
+    virsh undefine ${vm_name}
   fi
-
+  virsh undefine ${vm_name}
 }
 
 if [[ -n ${1} ]];then
